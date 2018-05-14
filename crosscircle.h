@@ -24,6 +24,20 @@ void ruch_trzeci(int scenariusz, int tablica [3][3]);
 int strategiczny_ruch_komputera(int ktory, int scenariusz, int tablica[3][3]);
 void ruch_gracz_1(int wybor_gracza1, int tablica[3][3]);
 
+int czysc_tablice(int tablica[3][3]);
+
+void wypisz_tablice(int tablica[3][3]);
+
+void gracz1(void);
+
+void ruch(int wybor, int  tablica[3][3]);
+
+int wczytaj_wspolrzedna(char tekst[]);
+
+int werdykt_wygranej(int suma);
+int sprawdz_wygrana(int tablica[3][3]);
+
+int tryb_gry(void);
 
 
 #endif // CROSSCIRCLE_
