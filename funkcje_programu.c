@@ -136,3 +136,154 @@ int zagrozenie(int tryb, int tablica[3][3])
 {
    return sprawdzam_pion(tryb,tablica) == 1 || sprawdzam_poziom(tryb,tablica) == 1 || sprawdzam_skosy(tryb,tablica) == 1;
 }
+
+void ruch_gracz_1(int wybor_gracza1, int tablica[3][3])
+{
+    gracz1();
+    ruch(wybor_gracza1,tablica);
+    wypisz_tablice(tablica);
+    if (sprawdz_wygrana(tablica) == 1)
+    {
+        wypisz_tablice(tablica);
+        exit(0);
+    }
+}
+
+int czysc_tablice(int tablica[3][3])
+{
+    for(int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            tablica[i][j]=0;
+        }
+    }
+    return 0;
+}
+
+void wypisz_tablice(int tablica[3][3])
+{
+    printf("     <1>    <2>    <3>\n");
+    for(int i = 0; i < 3; i++)
+    {
+        printf("%d) ",i + 1);
+        for (int j = 0; j < 3; j++)
+        {
+            
+            switch( tablica[i][j])
+            {
+                case 0:
+                    printf("|     |");
+                    break;
+                case WARTOSC_X:
+                    printf("|  X  |");
+                    break;
+                case WARTOSC_O:
+                    printf("|  O  |");
+                    
+            }
+            
+        }
+        printf("\n");
+    }
+}
+
+void gracz1(void)
+{
+    puts("Kolej gracza 1\n");
+}
+
+int wczytaj_wspolrzedna(char tekst[])
+{
+    int zmienna=0;
+    do
+    {
+        printf("Podaj %s:\n", tekst);
+        scanf("%d", &zmienna);
+        while(getchar() != '\n');
+        zmienna -= 1;
+    }while(zmienna < 0 || zmienna > 2);
+    return zmienna;
+}
+
+void ruch(int wybor, int  tablica[3][3])
+{
+    int kolumna = 0;
+    int wiersz = 0;
+    do
+    {
+        kolumna = wczytaj_wspolrzedna("kolumne");
+        wiersz = wczytaj_wspolrzedna("wiersz");
+    }while(tablica[wiersz][kolumna]);
+    switch(wybor)
+    {
+        case 1:
+            tablica[wiersz][kolumna] = WARTOSC_X;
+            break;
+        case 2:
+            tablica[wiersz][kolumna] = WARTOSC_O;
+            break;
+    }
+    
+}
+
+int werdykt_wygranej(int suma)
+{
+    switch(suma)
+    {
+        case 3*WARTOSC_X:
+            puts("\n\n\nWygraly X\n\n");
+            return 1;
+        case 3*WARTOSC_O:
+            puts("\n\n\nWygraly O\n\n");
+            return 1;
+    }
+    return 0;
+}
+
+int sprawdz_wygrana(int tablica[3][3])
+{
+    int wyznacznik_wygranej = 0;
+    int suma = 0;
+    for(int a = 0; a < 3; a++)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            suma += tablica[a][i];
+        }
+        wyznacznik_wygranej += werdykt_wygranej(suma);
+        
+        suma = 0;
+    }
+    
+    
+    for(int a = 0; a < 3; a++)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            suma += tablica[i][a];
+        }
+        wyznacznik_wygranej += werdykt_wygranej(suma);
+        suma = 0;
+    }
+    
+    suma = tablica[0][0] + tablica[1][1] + tablica[2][2];
+    wyznacznik_wygranej += werdykt_wygranej(suma);
+    
+    suma = tablica[0][2] + tablica[1][1] + tablica[2][0];
+    wyznacznik_wygranej += werdykt_wygranej(suma);
+    
+    return (wyznacznik_wygranej >= 1);
+}
+
+int tryb_gry(void)
+{
+    int tryb;
+    do
+    {
+        puts("Wybierz tryb gry:\n1=wersja dla 2 graczy\n2=wersja dla 1 gracza");
+        scanf("%d", &tryb);
+        while(getchar() != '\n');
+    }while (!(tryb == 1 || tryb == 2));
+    return tryb;
+}
