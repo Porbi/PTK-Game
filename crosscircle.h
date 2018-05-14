@@ -37,6 +37,7 @@ int wczytaj_wspolrzedna(char tekst[]);
 int werdykt_wygranej(int suma);
 int sprawdz_wygrana(int tablica[3][3]);
 
+
 int tryb_gry(void);
 
 
