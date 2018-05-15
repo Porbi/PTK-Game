@@ -1,4 +1,4 @@
-#include "crosscircle.h"
+#include "funkcje_programu_2.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -169,7 +169,7 @@ void wypisz_tablice(int tablica[3][3])
         printf("%d) ",i + 1);
         for (int j = 0; j < 3; j++)
         {
-            
+
             switch( tablica[i][j])
             {
                 case 0:
@@ -180,9 +180,9 @@ void wypisz_tablice(int tablica[3][3])
                     break;
                 case WARTOSC_O:
                     printf("|  O  |");
-                    
+
             }
-            
+
         }
         printf("\n");
     }
@@ -224,7 +224,7 @@ void ruch(int wybor, int  tablica[3][3])
             tablica[wiersz][kolumna] = WARTOSC_O;
             break;
     }
-    
+
 }
 
 int werdykt_wygranej(int suma)
@@ -252,11 +252,11 @@ int sprawdz_wygrana(int tablica[3][3])
             suma += tablica[a][i];
         }
         wyznacznik_wygranej += werdykt_wygranej(suma);
-        
+
         suma = 0;
     }
-    
-    
+
+
     for(int a = 0; a < 3; a++)
     {
         for(int i = 0; i < 3; i++)
@@ -266,13 +266,13 @@ int sprawdz_wygrana(int tablica[3][3])
         wyznacznik_wygranej += werdykt_wygranej(suma);
         suma = 0;
     }
-    
+
     suma = tablica[0][0] + tablica[1][1] + tablica[2][2];
     wyznacznik_wygranej += werdykt_wygranej(suma);
-    
+
     suma = tablica[0][2] + tablica[1][1] + tablica[2][0];
     wyznacznik_wygranej += werdykt_wygranej(suma);
-    
+
     return (wyznacznik_wygranej >= 1);
 }
 

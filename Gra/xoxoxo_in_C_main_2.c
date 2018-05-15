@@ -13,3 +13,22 @@ int main(void)
    "Druga z nich odpowiada wspolrzednej poziomej(wiersz)");
    int tablica[3][3];
    czysc_tablice(tablica);
+
+    switch (tryb_gry())
+   {
+      case 1:
+      {
+         wypisz_tablice(tablica);
+         int wybor_gracza1;
+         int wybor_gracza2;
+         switch(wczytaj_symbol_gracza())
+         {
+            case WARTOSC_X:
+               wybor_gracza1 = 1;
+               wybor_gracza2 = 2;
+               break;
+            case WARTOSC_O:
+               wybor_gracza1 = 2;
+               wybor_gracza2 = 1;
+               break;
+         } // tu trzeba dokonczyc
