@@ -137,6 +137,64 @@ int zagrozenie(int tryb, int tablica[3][3])
    return sprawdzam_pion(tryb,tablica) == 1 || sprawdzam_poziom(tryb,tablica) == 1 || sprawdzam_skosy(tryb,tablica) == 1;
 }
 
+int poziom_trudnosci(void)
+{
+   int trudnosc_gry;
+   do
+   {
+      puts("Wybierz poziom trudnosci\n1=szympans\n2=czlowiek\n3=zawodowiec");
+      scanf("%d", &trudnosc_gry);
+      while(getchar() != '\n');
+   }while(trudnosc_gry != TRUDNOSC_SZYMPANS && trudnosc_gry != TRUDNOSC_CZLOWIEK && trudnosc_gry != TRUDNOSC_PRO);
+   return trudnosc_gry;
+}
+
+
+void ruch_szympansa(int tablica[3][3])
+{
+   int wiersz,kolumna;
+   int czy_gotowe = 0;
+   do
+   {
+      wiersz = rand() % 3;
+      kolumna = rand () % 3;
+      if (tablica[wiersz][kolumna] == 0)
+      {
+         tablica[wiersz][kolumna]= WARTOSC_X;
+         czy_gotowe = 1;
+         return;
+      }
+   }while(czy_gotowe == 0);
+}
+
+
+void ruch_komputera(int tablica[3][3])
+{
+   if(zagrozenie(2,tablica) == 0)
+   {
+      if(zagrozenie(-2, tablica) == 0)
+      {
+         ruch_szympansa(tablica);
+      }
+   }
+   wypisz_tablice(tablica);
+   puts("\n");
+   if(sprawdz_wygrana(tablica) == 1)
+   {
+      wypisz_tablice(tablica);
+      puts("\n");
+      exit(0);
+   }
+}
+
+
+void ruch_pierwszy(int tablica[3][3])
+{
+   tablica[0][2] = WARTOSC_X;
+   wypisz_tablice(tablica);
+   puts("\n");
+}
+
 void ruch_gracz_1(int wybor_gracza1, int tablica[3][3])
 {
     gracz1();
