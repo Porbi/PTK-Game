@@ -195,6 +195,52 @@ void ruch_pierwszy(int tablica[3][3])
    puts("\n");
 }
 
+int ruch_drugi(int tablica[3][3])
+{
+    int scenariusz = 0;
+    switch(tablica[1][1])
+    {
+        case WARTOSC_O:
+        {
+            scenariusz = 1;
+            ruch_komputera(tablica);
+            break;
+        }
+        case 0:
+        {
+            if(tablica[0][0] + tablica[2][2] == WARTOSC_O)
+            {
+                scenariusz = 2;
+                tablica[2][0] = WARTOSC_X;
+                wypisz_tablice(tablica);
+                puts("\n");
+            }
+            else if(tablica[1][0] + tablica[1][2] + tablica[2][1] == WARTOSC_O)
+            {
+                scenariusz = 3;
+                tablica[0][0] = WARTOSC_X;
+                wypisz_tablice(tablica);
+                puts("\n");
+            }
+            else if(tablica[0][1] == WARTOSC_O)
+            {
+                scenariusz = 5;
+                tablica[2][2] = WARTOSC_X;
+                wypisz_tablice(tablica);
+                puts("\n");
+            }
+            else
+            {
+                scenariusz = 4;
+                ruch_komputera(tablica);
+            }
+            break;
+        }
+    }
+    return scenariusz;
+}
+
+
 void ruch_gracz_1(int wybor_gracza1, int tablica[3][3])
 {
     gracz1();
