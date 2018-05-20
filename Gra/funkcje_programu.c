@@ -239,6 +239,78 @@ int ruch_drugi(int tablica[3][3])
     }
     return scenariusz;
 }
+void ruch_trzeci(int scenariusz, int tablica [3][3])
+{
+   if(zagrozenie(2,tablica)==0)
+   {
+      if(zagrozenie(-2, tablica)==0)
+      {
+         switch(scenariusz)
+         {
+            case 1:
+               ruch_komputera(tablica);
+               break;
+            case 4:
+               ruch_komputera(tablica);
+               break;
+            case 2:
+            {
+               if(tablica[0][0] == WARTOSC_O)
+               {
+                  tablica[2][2] = WARTOSC_X;
+               }
+               else
+               {
+                  tablica[0][0] = WARTOSC_X;
+               }
+               break;
+            }
+            case 3:
+            {
+               tablica[1][1] = WARTOSC_X;
+               break;
+            }
+            case 5:
+            { 
+               tablica[1][1] = WARTOSC_X;
+               break;
+            }
+         }
+         wypisz_tablice(tablica);
+         puts("\n");
+      }
+   }
+   wypisz_tablice(tablica);
+   puts("\n");
+   if (sprawdz_wygrana(tablica) == 1)
+   {
+      wypisz_tablice(tablica);
+      puts("\n");
+      exit(0);
+   }
+   
+}
+
+
+int strategiczny_ruch_komputera(int ktory, int scenariusz, int tablica[3][3])
+{
+   switch(ktory)
+   {
+      case 0:
+         ruch_pierwszy(tablica);
+         break;
+      case 1:
+         scenariusz = ruch_drugi(tablica);
+         break;
+      case 2:
+         ruch_trzeci(scenariusz, tablica);
+   }
+   if(ktory > 2)
+   {
+      ruch_komputera(tablica);
+   }
+   return scenariusz;
+}
 
 
 void ruch_gracz_1(int wybor_gracza1, int tablica[3][3])
