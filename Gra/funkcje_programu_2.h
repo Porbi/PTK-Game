@@ -1,5 +1,8 @@
-#ifndef CROSSCIRCLE_
-#define CROSSCIRCLE_
+#ifndef multiplayer2_h
+#define multiplayer2_h
+
+enum wartosci{WARTOSC_O = -1, WARTOSC_X = 1};
+enum trudnosc {TRUDNOSC_SZYMPANS = 1, TRUDNOSC_CZLOWIEK = 2, TRUDNOSC_PRO = 3};
 
 
 int wczytanie_deklaracji(void);
