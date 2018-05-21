@@ -41,5 +41,31 @@ int main(void)
           puts( "\n\nRemis\n\n");
           return 0;
       }
-   }
+       case 2:
+           switch(poziom_trudnosci ())
+       {
+           case TRUDNOSC_SZYMPANS:
+           {
+               puts("/n");
+               wypisz_tablice(tablica);
+               puts("Komputer - X, gracz - Y\n");
+               for(int i = 0; i < 4; i++)
+               {
+                   ruch_szympansa (tablica);
+                   wypisz_tablice(tablica);
+                   puts("\n");
+                   if (sprawdz_wygrana(tablica) == 1)
+                   {
+                       wypisz_tablice(tablica);
+                       puts("\n");
+                       return 0;
+                   }
+                   ruch_gracz_1(2, tablica);
+               }
+               ruch_gracz_1(2,tablica);
+               puts("\n\nRemis\n\n");
+               return 0;
+           }
+       }
 }
+
