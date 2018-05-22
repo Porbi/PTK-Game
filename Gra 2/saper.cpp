@@ -23,3 +23,14 @@ pole plansza[10][10];
 
 int poz_x = 0, poz_y = 0, o_poz_x = 1, o_poz_y = 1;
 int koniec = 0;
+
+bool genruj_plansze ()
+{
+    for (int x = 0; x<10; x++)
+    for (int y = 0; y<10; y++)                       
+    {
+        plansza[x][y].wartosc = 0;
+        plansza[x][y].odkryte = false;
+    }
+    return true;
+}
