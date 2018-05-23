@@ -71,3 +71,23 @@ void pokaz_plansze()
     cout << "X: " << poz_x << endl;  //aktualkna pozycja kursora
     cout << "Y: " << poz_y << endl;  //aktualkna pozycja kursora
 }
+
+bool ustaw_mine (int poz_x, int poz_y)
+{
+    if (plansza[poz_x][poz_y].wartosc!=9)
+    {
+        plansza[poz_x][poz_y].wartosc = 9; //ustawiamy mine
+        
+        for (int k = -1; k<2; k++)
+        for (int l = -1; l<2; l++)
+        {
+            if ((poz_x+l)<0 || (poz_y+k)<0 ) continue; //wyjdz bo krawedz
+            if ((poz_x+l)>9 || (poz_y+k)>9 ) continue; //wyjdz bo krawedz
+            
+            if (plansza[poz_x+l][poz_y+k].wartosc==9) continue; //wyjdz bo mina
+            plansza[poz_x+l][poz_y+k].wartosc += 1; //zwieksz o 1
+        }
+    }
+    
+    return true;
+}
