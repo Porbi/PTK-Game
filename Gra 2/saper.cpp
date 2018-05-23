@@ -91,3 +91,27 @@ bool ustaw_mine (int poz_x, int poz_y)
     
     return true;
 }
+
+void odkryj_plansze(int x, int y)
+{
+    if (x<0 || x>9) return; // poza tablic¹ wyjœcie
+    if (y<0 || y>9) return; // poza tablic¹ wyjœcie
+    if (plansza[x][y].odkryte==true) return;  // ju¿ odkryte wyjœcie
+
+    if(plansza[x][y].wartosc!=9 && plansza[x][y].odkryte==false)
+        plansza[x][y].odkryte=true;   // odkryj!
+
+    if (plansza[x][y].wartosc!=0) return; // wartoœæ > 0 wyjœcie
+
+    //wywo³anie funkcji dla ka¿dego s¹siada
+    odkryj_plansze(x-1,y-1);
+    odkryj_plansze(x-1,y);
+    odkryj_plansze(x-1,y+1);
+    odkryj_plansze(x+1,y-1);
+    odkryj_plansze(x+1,y);
+    odkryj_plansze(x+1,y+1);
+    odkryj_plansze(x,y-1);
+    odkryj_plansze(x,y);
+    odkryj_plansze(x,y+1);
+}
+
