@@ -1,117 +1,56 @@
-#include <conio.h>
-#include <windows.h>
-#include <iostream>
-#include <time.h>
-
-#define strzalka_lewo 0x25
-#define strzalka_prawo 0x27
-#define strzalka_dol 0x28
-#define strzalka_gora 0x26
-
-#define enter 0x0D
-
-
-using namespace std;
-
-struct pole
+bool set_mine (int pos_x, int pos_y)
 {
-    int wartosc;
-    bool odkryte;
-};
-
-pole plansza[10][10];
-
-int poz_x = 0, poz_y = 0, o_poz_x = 1, o_poz_y = 1;
-int koniec = 0;
-
-bool genruj_plansze ()
-{
-    for (int x = 0; x<10; x++)
-    for (int y = 0; y<10; y++)
+    if (board[pos_x][pos_y].value!=9)
     {
-        plansza[x][y].wartosc = 0;
-        plansza[x][y].odkryte = false;
-    }
-    return true;
-}
-
-void pokaz_plansze()
-{
-    system ("cls"); //wyczysc ekran
-
-    for (int i = 0; i<10; i++)
-    {
-        for (int j = 0; j<10; j++)
-        {
-            if (j==poz_x && i==poz_y) //aktualkna pozycja kursora
-            {
-                SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE  ), 0x02);
-                cout << "#";
-            }
-            else
-            {
-                SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE  ), 0x07);
-                if (plansza[j][i].odkryte==true) // pole odkryte
-                {
-                    if (plansza[j][i].wartosc==0)   //wartosc = 0
-                        cout << " ";                //wyswietl spacje
-                    else
-                        cout << plansza[j][i].wartosc; //wyswietl wartosc 1-8
-
-                }
-                if (plansza[j][i].odkryte==false) //pole nie odkryte
-                    cout << "#"; //wyswietl #
-            }
-        }
-        SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x07 );
-        cout << endl;
-    }
-
-    cout << "\npozycja kursora:\n";  //aktualkna pozycja kursora
-    cout << "X: " << poz_x << endl;  //aktualkna pozycja kursora
-    cout << "Y: " << poz_y << endl;  //aktualkna pozycja kursora
-}
-
-bool ustaw_mine (int poz_x, int poz_y)
-{
-    if (plansza[poz_x][poz_y].wartosc!=9)
-    {
-        plansza[poz_x][poz_y].wartosc = 9; //ustawiamy mine
-        
+        board[pos_x][pos_y].value = 9;
         for (int k = -1; k<2; k++)
-        for (int l = -1; l<2; l++)
-        {
-            if ((poz_x+l)<0 || (poz_y+k)<0 ) continue; //wyjdz bo krawedz
-            if ((poz_x+l)>9 || (poz_y+k)>9 ) continue; //wyjdz bo krawedz
-            
-            if (plansza[poz_x+l][poz_y+k].wartosc==9) continue; //wyjdz bo mina
-            plansza[poz_x+l][poz_y+k].wartosc += 1; //zwieksz o 1
-        }
+            for (int l = -1; l<2; l++)
+            {
+                if ((pos_x+l)<0 || (pos_y+k)<0 ) continue;
+                if ((pos_x+l)>9 || (pos_y+k)>9 ) continue;
+
+                if (board[pos_x+l][pos_y+k].value==9) continue;
+                board[pos_x+l][pos_y+k].value += 1;
+            }
     }
-    
+
     return true;
 }
 
-void odkryj_plansze(int x, int y)
+
+void reveal_board(int x, int y)
 {
-    if (x<0 || x>9) return; // poza tablic¹ wyjœcie
-    if (y<0 || y>9) return; // poza tablic¹ wyjœcie
-    if (plansza[x][y].odkryte==true) return;  // ju¿ odkryte wyjœcie
+    if (x<0 || x>9) return;
+    if (y<0 || y>9) return;
+    if (board[x][y].revealed==true) return;
+    if(board[x][y].value!=9 && board[x][y].revealed==false)
+        board[x][y].revealed=true;
 
-    if(plansza[x][y].wartosc!=9 && plansza[x][y].odkryte==false)
-        plansza[x][y].odkryte=true;   // odkryj!
-
-    if (plansza[x][y].wartosc!=0) return; // wartoœæ > 0 wyjœcie
-
-    //wywo³anie funkcji dla ka¿dego s¹siada
-    odkryj_plansze(x-1,y-1);
-    odkryj_plansze(x-1,y);
-    odkryj_plansze(x-1,y+1);
-    odkryj_plansze(x+1,y-1);
-    odkryj_plansze(x+1,y);
-    odkryj_plansze(x+1,y+1);
-    odkryj_plansze(x,y-1);
-    odkryj_plansze(x,y);
-    odkryj_plansze(x,y+1);
+    if (board[x][y].value!=0) return;
+    reveal_board(x-1,y-1);
+    reveal_board(x-1,y);
+    reveal_board(x-1,y+1);
+    reveal_board(x+1,y-1);
+    reveal_board(x+1,y);
+    reveal_board(x+1,y+1);
+    reveal_board(x,y-1);
+    reveal_board(x,y);
+    reveal_board(x,y+1);
+}
+int main()
+{
+    generate_board();
+    random_position();
+    Sleep(250);
+    while(end==0)
+    {
+        Sleep(50);
+        control();
+        if (win_condition()==true) end = 1;
+    }
+    if (end==1) cout << "\nCongratulations You Won";
+    if (end==2) cout << "\nTry Again";
+    system ("pause >nul");
+    return 0;
 }
 
