@@ -1,3 +1,41 @@
+void show_board()
+{
+    system("cls");
+
+    for (int i = 0; i<10; i++)
+    {
+        for (int j = 0; j<10; j++)
+        {
+            if (j==pos_x && i==pos_y)
+            {
+                SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE  ), 0x02);
+                cout << "#";
+            }
+            else
+            {
+                SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE  ), 0x07);
+                if (board[j][i].revealed==true)
+                {
+                    if (board[j][i].value==0)
+                        cout << " ";
+                    else
+                        cout << board[j][i].value;
+
+                }
+                if (board[j][i].revealed==false)
+                    cout << "#";
+            }
+        }
+        SetConsoleTextAttribute( GetStdHandle( STD_OUTPUT_HANDLE ), 0x07 );
+        cout << endl;
+    }
+
+    cout << "\nCursor Position:\n";
+    cout << "X: " << pos_x << endl;
+    cout << "Y: " << pos_y << endl;
+}
+
+
 bool set_mine (int pos_x, int pos_y)
 {
     if (board[pos_x][pos_y].value!=9)
@@ -37,6 +75,27 @@ void reveal_board(int x, int y)
     reveal_board(x,y);
     reveal_board(x,y+1);
 }
+
+void control()
+{
+    if ((GetKeyState(enter) & 0x8000))
+    {
+        if (board[pos_x][pos_y].value==9)
+            end = 2;
+
+        reveal_board(pos_x, pos_y);
+        show_board();
+    }
+    if ((GetKeyState(arrow_right) & 0x8000) && pos_x<9) pos_x++;
+    if ((GetKeyState(arrow_left) & 0x8000) && pos_x>0) pos_x--;
+    if ((GetKeyState(arrow_down) & 0x8000) && pos_y<9) pos_y++;
+    if ((GetKeyState(arrow_up) & 0x8000) && pos_y>0) pos_y--;
+    if (o_pos_y==pos_y && o_pos_x==pos_x) return;
+    o_pos_y = pos_y;
+    o_pos_x = pos_x;
+    show_board();
+}
+
 int main()
 {
     generate_board();
