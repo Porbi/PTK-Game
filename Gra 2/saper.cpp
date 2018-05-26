@@ -1,3 +1,40 @@
+#include <iostream>
+#include <time.h>
+#include <conio.h>
+#include <windows.h>
+
+#define arrow_left 0x25
+#define arrow_right 0x27
+#define arrow_down 0x28
+#define arrow_up 0x26
+
+#define enter 0x0D
+
+using namespace std;
+
+struct field
+{
+    int value;
+    bool revealed;
+};
+
+field board[10][10];
+
+int pos_x = 0, pos_y = 0, o_pos_x = 1, o_pos_y = 1;
+int end = 0;
+
+bool generate_board ()
+{
+    for (int x = 0; x<10; x++)
+        for (int y = 0; y<10; y++)
+        {
+            board[x][y].value = 0;
+            board[x][y].revealed = false;
+        }
+    return true;
+}
+
+
 void show_board()
 {
     system("cls");
@@ -74,6 +111,40 @@ void reveal_board(int x, int y)
     reveal_board(x,y-1);
     reveal_board(x,y);
     reveal_board(x,y+1);
+}
+
+bool win_condition()
+{
+    int mines = 0;
+    for (int i = 0; i<10; i++)
+    {
+        for (int j = 0; j<10; j++)
+        {
+            if(board[j][i].revealed==false)
+                mines++;
+        }
+    }
+    if (mines==10) return true;
+    return false;
+}
+
+void random_position ()
+{
+    time_t t;
+    int pos_x, pos_y;
+    int quantity = 10;
+    srand((unsigned)time(&t));
+    while (quantity>0)
+    {
+        pos_x = rand()%10;
+        pos_y = rand()%10;
+        
+        if (board[pos_x][pos_y].value!=9)
+        {
+            set_mine(pos_x,pos_y);
+            quantity--;
+        }
+    }
 }
 
 void control()
