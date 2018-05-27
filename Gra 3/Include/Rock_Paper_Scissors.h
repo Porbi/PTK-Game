@@ -1,3 +1,24 @@
+#ifndef RPS_ROCK_PAPER_SCISSORS_H
+#define RPS_ROCK_PAPER_SCISSORS_H
+
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <unistd.h>
+#include <string>
+
+
+
+void clear_screen();
+
+
+void pause(useconds_t time);
+
+
+int random_number();
+
+
+
 class Player {
 
 public:
