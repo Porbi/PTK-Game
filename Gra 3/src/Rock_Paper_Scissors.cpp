@@ -27,6 +27,35 @@ void Output::show_choices() const {
     pause(2);
 }
 
+void Output::show_chosen(int player_choice, int computer_choice) const {
+    std::cout << "Your choice: ";
+    if (player_choice == 1) {
+        std::cout << "Rock";
+    } else if(player_choice == 2) {
+        std::cout << "Paper";
+    } else if(player_choice == 3) {
+        std::cout << "Scissors";
+    }
+    std::cout << std::endl;
+    pause(1);
+    std::cout << "Computer choice: ";
+    if (computer_choice == 1) {
+        std::cout << "Rock";
+    } else if(computer_choice == 2) {
+        std::cout << "Paper";
+    } else if(computer_choice == 3) {
+        std::cout << "Scissors";
+    }
+    std::cout << "\n" << std::endl;
+    pause(1);
+}
+
+void Output::show_round_winner(std::string r_winner) const {
+    std::cout << "Winner is: "
+    << r_winner << std::endl;
+}
+
+
 void Output::show_score(std::size_t player_score, std::size_t computer_score) const {
     std::cout << "Score:\n" << std::endl;
     pause(1);
