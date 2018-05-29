@@ -126,3 +126,27 @@ int random_number() {
     int number = rand() %3 + 1;
     return number;
 }
+std::string choose_round_winner(Player& human, Player& computer) {
+    if (human.get_choice() == computer.get_choice()) {
+        return "DRAW";
+    } else if (human.get_choice() == 1 && computer.get_choice() == 3) {
+        human.raise_score();
+        return "YOU";
+    } else if (human.get_choice() == 1 && computer.get_choice() == 2) {
+        computer.raise_score();
+        return "COMPUTER";
+    } else if (human.get_choice() == 2 && computer.get_choice() == 1) {
+        human.raise_score();
+        return "YOU";
+    } else if (human.get_choice() == 2 && computer.get_choice() == 3) {
+        computer.raise_score();
+        return "COMPUTER";
+    } else if (human.get_choice() == 3 && computer.get_choice() == 1) {
+        computer.raise_score();
+        return "COMPUTER";
+    } else if (human.get_choice() == 3 && computer.get_choice() == 2) {
+        human.raise_score();
+        return "YOU";
+    }
+    return "I <3 INPG";
+}
