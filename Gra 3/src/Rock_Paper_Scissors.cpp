@@ -92,3 +92,37 @@ void Output::show_final_score(std::size_t human_score, std::size_t computer_scor
         exit(0);
     }
 }
+
+
+
+
+
+
+void Input::ask_round(int& round_count) {
+    std::cout << "Number of rounds: ";
+    std::cin >> round_count;
+    if (round_count <= 0) {
+        while (true) {
+            std::cout << "Error: Incorrect number" << std::endl;
+            std::cout << "Number of rounds: ";
+            std::cin >> round_count;
+            if (round_count > 0) {
+                break;
+            }
+        }
+    }
+}
+
+
+
+
+
+void pause(useconds_t time) {
+    usleep(time * 1000000);
+}
+
+
+int random_number() {
+    int number = rand() %3 + 1;
+    return number;
+}
