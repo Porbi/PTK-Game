@@ -94,7 +94,22 @@ void Output::show_final_score(std::size_t human_score, std::size_t computer_scor
 }
 
 
-
+void Input::ask_choice(Player& player) {
+    std::cout << "Choose: ";
+    int choice;
+    std::cin >> choice;
+    if (choice <= 0 || choice > 4) {
+        while (true) {
+            std::cout << "Error: Incorrect number" << std::endl;
+            std::cout << "Choose: ";
+            std::cin >> choice;
+            if (choice > 0 && choice <=4 ) {
+                break;
+            }
+        }
+    }
+    player.add_choice(choice);
+}
 
 
 
@@ -114,6 +129,9 @@ void Input::ask_round(int& round_count) {
 }
 
 
+void clear_screen() {
+    system("clear");
+}
 
 
 
