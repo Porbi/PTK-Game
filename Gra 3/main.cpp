@@ -18,3 +18,18 @@
         pause(3);
         std::cout << "-------------------------------------" << std::endl;
         std::cout << "-------------------------------------" << std::endl;
+        pause(2);
+        clear_screen();
+        pause(1);
+        if (round < round_count) {
+            std::cout << "Get Ready" << std::endl;
+        } else if (round == round_count) {
+            std::cout << "Calculating results..." << std::endl;
+        }
+        pause(2);
+    }
+    clear_screen();
+    output.show_final_score(human.get_score(), computer.get_score());
+
+    return 0;
+}
