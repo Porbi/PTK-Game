@@ -1,4 +1,22 @@
+#include "include/Rock_Paper_Scissors.h"
 
+int main() {
+    srand(time(NULL));
+    Player human;
+    Player computer;
+    Output output;
+    Input input;
+
+    output.show_start();
+    int round_count = 0;
+    input.ask_round(round_count);
+    for (int round = 1; round <= round_count; round++)  {
+        clear_screen();
+        if (round == round_count && round != 1) {
+            std::cout << "FINAL ROUND" << std::endl;
+            pause(2);
+            clear_screen();
+        }
 
 
         std::cout << "        ROUND " << round << std::endl;
