@@ -1,4 +1,51 @@
+#include "include/Rock_Paper_Scissors.h"
+#include "src/funkcje_programu.c"
 
+
+
+int main() {
+    std::cout << "       |WELCOME|" << std::endl;
+    pause(2);
+    clear_screen();
+    std::cout << "\n\n       |MENU|" << std::endl;
+    pause(1);
+    std::cout << "\n\n1. ROCK PAPER SCISSORS" << std::endl;
+    pause(1);
+    std::cout << "2. XOXOXO" << std::endl;
+    pause(1);
+    std::cout << "3. END" << std::endl;
+    pause(1);
+    std::cout << "\n\n\nCHOOSE: ";
+    int main_choice = 0;
+    std::cin >> main_choice;
+    if (main_choice < 1 || main_choice > 3) {
+        while (true) {
+            std::cout << "Error: Incorrect number\n";
+            std::cout << "CHOOSE: ";
+            std::cin >> main_choice;
+            if (main_choice > 1 && main_choice < 3) {
+                break;
+            }
+        }
+    }
+    Player human;
+    Player computer;
+    Output output;
+    Input input;
+    int round_count = 0;
+    switch (main_choice) {
+
+        case 1 :
+            output.show_start();
+            input.ask_round(round_count);
+            for (int round = 1; round <= round_count; round++) {
+                clear_screen();
+                if (round == round_count && round != 1) {
+                    std::cout << "FINAL ROUND" << std::endl;
+                    pause(2);
+                    clear_screen();
+                }
+				
                 std::cout << "        ROUND " << round << std::endl;
                 std::cout << "-------------------------------------" << std::endl;
                 output.show_choices();
